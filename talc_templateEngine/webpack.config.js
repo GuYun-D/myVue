@@ -12,6 +12,7 @@ module.exports = {
     // 不压缩
     compress: false,
     port: 8080,
+    open: true,
     // 虚拟打包路径，bundle.js没有真正的生成
     publicPath: '/xuni/'
   }
