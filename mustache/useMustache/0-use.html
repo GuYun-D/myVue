@@ -1,0 +1,89 @@
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+  <meta charset="UTF-8">
+  <meta http-equiv="X-UA-Compatible" content="IE=edge">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>Document</title>
+</head>
+
+<body>
+  <div id="container">
+
+  </div>
+
+  <script src="./mustache.js"></script>
+  <script>
+    var data = {
+      arr: [
+        { name: "小明", age: 8, sex: "男" },
+        { name: "小花", age: 11, sex: "男" },
+        { name: "小秀", age: 10, sex: "女" }
+      ],
+
+      thing: "电脑",
+      mood: "开心啊",
+
+      arr1: ['A', 'B', 'C', 'D'],
+
+      m: true
+    };
+
+    // 需要循环的模板,可以嵌套循环
+    var templateStr = `
+      <ul>
+        {{#arr}}
+          <li>
+            <div class="hd">{{name}}的信息</div>
+            <div class="bd">
+              <p>姓名：{{name}} </p>
+              <p>年龄：{{age}}</p>
+              <p>性别：{{sex}}</p>
+            </div>
+          </li>
+        {{/arr}}
+      </ul>
+    `
+
+    // 不需要循环的模板
+    var templateStr1 = `
+      <h1>我买了一个{{thing}}, 我{{mood}}啊</h1>
+    `;
+
+    // 简单数组循环
+    // var templateStr2 = `
+    //   <ul>
+    //     {{#arr1}}
+    //       <li>{{.}}</li>
+    //     {{/arr}}
+    //   </ul>
+    // `
+
+    // 存在类似v-if的操作。mustache不能进行运算，即使是1+1
+    var templateStr3 = `
+      {{#m}}
+        <h1>我显示了</h1>
+      {{/m}}
+    `
+
+
+    /**
+     * templateStr模板字符串，data循环的数据
+    */
+    var domStr = Mustache.render(templateStr, data)
+    var domStr1 = Mustache.render(templateStr1, data)
+    // var domStr2 = Mustache.render(templateStr2, data)
+    var domStr3 = Mustache.render(templateStr3, data)
+
+    // console.log(domStr);
+
+    var container = document.getElementById('container')
+    container.innerHTML += domStr
+    container.innerHTML += domStr1
+    // container.innerHTML += domStr2
+    container.innerHTML += domStr3
+  </script>
+</body>
+
+</html>
