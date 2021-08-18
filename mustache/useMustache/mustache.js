@@ -252,7 +252,8 @@
 
     if (openSection)
       throw new Error('Unclosed section "' + openSection[1] + '" at ' + scanner.pos);
-
+    // 打印出最终生成的tokens
+    console.log(nestTokens(squashTokens(tokens)));
     return nestTokens(squashTokens(tokens));
   }
 
