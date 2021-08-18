@@ -1,0 +1,42 @@
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+  <meta charset="UTF-8">
+  <meta http-equiv="X-UA-Compatible" content="IE=edge">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>Document</title>
+</head>
+
+<body>
+  <script>
+    var templateStr = `<h1>我买了一个{{thing}}, 好{{mood}}</h1>`
+    var data = {
+      thing: "华为手机",
+      mood: "开心啊"
+    }
+
+    /**
+     * 核心思路就是replace方法进行替换
+     * 如：'我爱前端，我爱编码'.replace(/我/g, '你')
+     * a:就是我要匹配的东西 findStr
+     * b:就是捕获到的 $1
+     * c:这匹配到的位置
+     * d::原串
+     * 回调函数return的东西就是要替换成的值
+    */
+
+    function render(template, data) {
+      return template.replace(/\{\{(\w+)\}\}/g, function (findStr, $1) {
+        console.log(findStr);
+        console.log($1);
+        return data[$1]
+      })
+    }
+
+    var res = render(templateStr, data)
+    console.log(res);
+  </script>
+</body>
+
+</html>
