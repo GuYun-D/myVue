@@ -1,4 +1,5 @@
 import lookup from './lookup'
+import parseArray from './parseArray'
 
 /**
  * 将tokens字符串转变成dom字符串
@@ -16,7 +17,11 @@ export default function renderTempalte(tokens, data) {
     if (token[0] == 'text') {
       resultStr += token[1]
     } else if (token[0] == 'name') {
+      // console.log(data);
+      // console.log(token[1]);
       resultStr += lookup(data, token[1])
+    } else if (token[0] == '#') {
+      resultStr += parseArray(token, data)
     }
   }
 

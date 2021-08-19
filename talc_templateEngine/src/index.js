@@ -10,7 +10,7 @@ window.TALC_TemplateEngine = {
 
     // 调用renderTemplate函数，让tokens数组转化成dom字符串
     let domStr = renderTempalte(tokens, data)
-    // console.log(domStr);
     console.log(domStr);
+    // return domStr
   }
 }
