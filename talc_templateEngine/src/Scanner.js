@@ -3,7 +3,7 @@
  */
 export default class Scanner {
   constructor(templateStr) {
-    console.log(templateStr);
+    // console.log(templateStr);
     // 将模板字符串定义成实例的属性
     this.templateStr = templateStr
 

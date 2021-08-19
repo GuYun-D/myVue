@@ -1,4 +1,6 @@
 import Scanner from "./Scanner";
+import nestTokens from './nestTokens'
+
 
 /**
  * 将模板字符串转换成tokens
@@ -34,5 +36,6 @@ export default function parseTemplateToTokens(templateStr) {
     scanner.scan("}}")
   }
 
-  return tokens
+  // 上述操作将模板转换成了一维的tokens，后续需要将它转换成二维的
+  return nestTokens(tokens)
 }
