@@ -27,7 +27,6 @@ export default class Scanner {
       // 改变尾巴为从当前指针这个字符开始，到最后的全部字符
       this.tail = this.templateStr.substr(this.pos)
     }
-
     // 将当前扫描的内容返回，左闭右开
     return this.templateStr.substring(pos_backup, this.pos)
   }

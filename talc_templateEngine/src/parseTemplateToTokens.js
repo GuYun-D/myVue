@@ -17,7 +17,9 @@ export default function parseTemplateToTokens(templateStr) {
   // 扫描器开始工作
   while (!scanner.eos()) {
     word = scanner.scanUtil("{{")
-    word && tokens.push(['text', word])
+    if (word != '') {
+      tokens.push(['text', word])
+    }
     scanner.scan('{{')
     word = scanner.scanUtil("}}")
     if (word != '') {
@@ -36,6 +38,7 @@ export default function parseTemplateToTokens(templateStr) {
     scanner.scan("}}")
   }
 
+  console.log(tokens);
   // 上述操作将模板转换成了一维的tokens，后续需要将它转换成二维的
   return nestTokens(tokens)
 }

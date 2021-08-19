@@ -16,20 +16,29 @@
   <script src="/xuni/bundle.js"></script>
 
   <script>
-    var templateStr = `
-      <ul>
-        {{#arr}}
-          <li>
-            <div class="hd">{{ name }}的信息</div>
-            <div class="bd">
-              <p>姓名：{{ name }} </p>
-              <p>年龄：{{ age }} </p>
-              <p>性别：{{ sex }} </p>
-            </div>
-          </li>
-        {{/arr}}
-      </ul > `
-    var data = {}
+    var templateStr = '我爱{{name}}，他是{{description}}'
+    // `
+    //   <ul>
+    //     {{#arr}}
+    //       <li>
+    //         <div class="hd">{{ name }}的信息</div>
+    //         <div class="bd">
+    //           <p>姓名：{{ name }} </p>
+    //           <p>年龄：{{ age }} </p>
+    //           <p>性别：{{ sex }} </p>
+    //         </div>
+    //       </li>
+    //     {{/arr}}
+    //   </ul > `
+    var data = {
+      // arr: [
+      //   { name: "小明", age: 8, sex: "男" },
+      //   { name: "小花", age: 11, sex: "男" },
+      //   { name: "小秀", age: 10, sex: "女" }
+      // ]
+      name: "张起灵",
+      description: "他是张家组长"
+    }
 
     // 调用render
     TALC_TemplateEngine.render(templateStr, data)
