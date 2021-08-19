@@ -1,3 +1,5 @@
+import lookup from './lookup'
+
 /**
  * 将tokens字符串转变成dom字符串
  */
@@ -14,7 +16,7 @@ export default function renderTempalte(tokens, data) {
     if (token[0] == 'text') {
       resultStr += token[1]
     } else if (token[0] == 'name') {
-      resultStr += data[token[1]]
+      resultStr += lookup(data, token[1])
     }
   }
 
