@@ -29,7 +29,10 @@ export default function parseArray(token, data) {
   for (let i = 0; i < usefulData.length; i++) {
     // console.log(token[2]);
     // console.log(usefulData[i]);
-    resultStr += renderTempalte(token[2], usefulData[i])
+    resultStr += renderTempalte(token[2], {
+      ...usefulData[i],
+      '.': usefulData[i]
+    })
   }
   return resultStr
 }

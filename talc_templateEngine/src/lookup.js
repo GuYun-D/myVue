@@ -6,9 +6,10 @@ export default function lookup(dataObj, keyName) {
   keyName = keyName.trim()
 
   /**
-   * 先对keyName进行判断，如果含有点，就进行分割，如果没有就直接赋值
+   * 先对keyName进行判断，如果含有点，就进行分割，如果没有就直接赋值;
+   * 但是keyName又不能是一个'.'
    */
-  if (keyName.indexOf('.') != -1) {
+  if (keyName.indexOf('.') != -1 && keyName !== '.') {
     var keys = keyName.split('.')
     var temp = dataObj
     for (let i = 0; i < keys.length; i++) {
