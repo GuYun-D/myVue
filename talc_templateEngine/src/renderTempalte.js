@@ -9,7 +9,7 @@ export default function renderTempalte(tokens, data) {
   // 遍历token
   for (let i = 0; i < tokens.length; i++) {
     let token = tokens[i]
-    console.log(token);
+    // console.log(token);
     // 判断类型
     if (token[0] == 'text') {
       resultStr += token[1]

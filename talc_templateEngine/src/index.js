@@ -1,6 +1,7 @@
 // import Scanner from './Scanner'
 import parseTemplateToTokens from './parseTemplateToTokens'
 import renderTempalte from './renderTempalte'
+import lookup from './lookup'
 
 // 全局提供TALC_TemplateEngine对象
 window.TALC_TemplateEngine = {
@@ -33,6 +34,11 @@ window.TALC_TemplateEngine = {
 
     // 调用renderTemplate函数，让tokens数组转化成dom字符串
     let domStr = renderTempalte(tokens, data)
-    console.log(domStr);
+    // console.log(domStr);
+
+    /**
+     * 测试lookup方法
+     */
+    lookup({n: {m: {p: "找到了"}}}, 'n.n.p')
   }
 }
