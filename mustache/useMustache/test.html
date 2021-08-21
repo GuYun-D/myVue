@@ -1,0 +1,46 @@
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+  <meta charset="UTF-8">
+  <meta http-equiv="X-UA-Compatible" content="IE=edge">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>Document</title>
+</head>
+
+<body>
+  <div id="container">
+
+  </div>
+
+  <script src="./mustache.js"></script>
+  <script>
+    var data = {
+      families: [
+        { id: 1, name: "张家" },
+        { id: 2, name: "吴家" },
+        { id: 3, name: "解家" }
+      ]
+    };
+    var template = `
+      <ul>
+        {{#families}}
+          <li>
+            <p>id：{{id}} </p>
+            <p>名字：{{name}} </p>  
+          </li>
+        {{/families}}
+      </ul>
+    `
+
+    // 获取container容器
+    var container = document.getElementById('container')
+    // 接收模板引擎处理好的模板字符串
+    var domStr = Mustache.render(template, data)
+    console.log(domStr);
+    // 填充进容器中，不能使用innerText，因为他不识别html标签
+    container.innerHTML = domStr
+  </script>
+</body>
+
+</html>
