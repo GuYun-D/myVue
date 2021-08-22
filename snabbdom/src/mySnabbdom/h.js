@@ -51,7 +51,9 @@ export default function (sel, data, c) {
     return vnode(sel, data, children, undefined, undefined)
 
   } else if (typeof c === 'object' && c.hasOwnProperty('sel')) {
-    // 
+    // type = Function 说明传入的参数就是唯一的children
+    let children = [c]
+    return vnode(sel, data, children, undefined, undefined)
   } else {
     throw new Error("参数三传入类型错误")
   }

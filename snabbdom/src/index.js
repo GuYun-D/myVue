@@ -4,6 +4,6 @@ import h from './mySnabbdom/h'
 var vnode1 = h("div", {}, [
   h('p', {}, '哈哈'),
   h('p', {}, '呵呵'),
-  h('p', {}, '嘻嘻')
+  h('p', {}, h('a', {}, 'text'))
 ])
 console.log(vnode1);
