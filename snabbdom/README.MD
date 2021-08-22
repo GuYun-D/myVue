@@ -143,3 +143,113 @@ h('ul', {}, [
   ]
 }
 ```
+
+# diff算法
+## 最小量更新
+- 尾部添加
+```js
+const container = document.getElementById('container')
+const btn = document.getElementById('btn')
+
+
+// 创建patch函数
+const patch = init([classModule, propsModule, styleModule, eventListenersModule])
+
+var vnode1 = h('ul', {}, [
+  h('li', {}, 'A'),
+  h('li', {}, 'B'),
+  h('li', {}, 'C'),
+  h('li', {}, 'D'),
+  h('li', {}, 'E')
+])
+
+// 上树
+patch(container, vnode1)
+
+var vnode2 = h('ul', {}, [
+  h('li', {}, 'A'),
+  h('li', {}, 'B'),
+  h('li', {}, 'C'),
+  h('li', {}, 'D'),
+  h('li', {}, 'E'),
+  h('li', {}, 'F'),
+])
+
+btn.addEventListener('click', function () {
+  /**
+   * 验证：点击按钮前，通过开发者工具，修改vnode1的文本属性，再点击按钮，发现，vnode1部分没有重新渲染，
+   * 而是改动了该改动的地方
+   */
+  patch(vnode1, vnode2)
+})
+```
+
+上述是在尾部追加更新的，
+
+![](src/public/image/Snipaste_2021-08-22_10-45-16.png)
+
+![](src/public/image/Snipaste_2021-08-22_11-22-30.png)
+
+
+- 头部添加
+```js
+import {
+  init,
+  classModule,
+  propsModule,
+  styleModule,
+  eventListenersModule,
+  h,
+} from "snabbdom";
+
+/**
+ * 体验diff算法
+ */
+const container = document.getElementById('container')
+const btn = document.getElementById('btn')
+
+
+// 创建patch函数
+const patch = init([classModule, propsModule, styleModule, eventListenersModule])
+
+var vnode1 = h('ul', {}, [
+  h('li', {}, 'A'),
+  h('li', {}, 'B'),
+  h('li', {}, 'C'),
+  h('li', {}, 'D'),
+  h('li', {}, 'E')
+])
+
+// 上树
+patch(container, vnode1)
+
+var vnode2 = h('ul', {}, [
+  h('li', {}, '头部添加'),
+  h('li', {}, 'A'),
+  h('li', {}, 'B'),
+  h('li', {}, 'C'),
+  h('li', {}, 'D'),
+  h('li', {}, 'E'),
+  h('li', {}, 'F'),
+])
+
+btn.addEventListener('click', function () {
+  /**
+   * 验证：点击按钮前，通过开发者工具，修改vnode1的文本属性，再点击按钮，发现，vnode1部分没有重新渲染，
+   * 而是改动了该改动的地方
+   */
+  patch(vnode1, vnode2)
+})
+```
+
+![](src/public/image/3.png)
+![](src/public/image/4.png)
+
+- 原因
+
+![](src/public/image/5.png)
+![](src/public/image/6.png)
+
+## 为数据添加唯一标识key
+上面的问题就可以解决
+而且实现最小量更新
