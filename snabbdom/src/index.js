@@ -25,7 +25,7 @@ var vnode1 = h('ul', {}, [
   h('li', {key: 'E'}, 'E')
 ])
 
-// 上树
+// 上树,并不是要将vnode1作为container子元素，而是将后者替换前者
 patch(container, vnode1)
 
 var vnode2 = h('ul', {}, [
