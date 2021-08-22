@@ -266,3 +266,5 @@ btn.addEventListener('click', function () {
 ## pathch流程图
 
 ![](src/public/image/patch函数.png)
+
+## 手写第一次上树
