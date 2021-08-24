@@ -20,7 +20,7 @@ export default function createElement(vnode) {
      */
     for (let i = 0; i < vnode.children.length; i++) {
       let ch = vnode.children[i]
-      console.log(ch);
+      // console.log(ch);
       // 创建出DOM，一旦调用createElement函数就意味着：创建出了dom，并且它的elm属性指向了创建出的DOM，但是还没有上树，一个孤儿节点
       let chDom = createElement(ch)
       // 上树
@@ -35,5 +35,4 @@ export default function createElement(vnode) {
 
   // 返回elm,elm是一个纯dom节点
   return vnode.elm
-
 }

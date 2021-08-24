@@ -5,11 +5,11 @@ import createElement from "./createElement";
  *  @param {*} oldVnode 旧的节点
  *  @param {*} newVnode 新的节点
  */
-export default function (oldVnode, newVnode) {
+export default function patch(oldVnode, newVnode) {
   /**
    * 先判断旧的节点是虚拟dom还是真实dom:是否含有sel属性
    */
-  if (oldVnode.sel = '' || oldVnode.sel == undefined) {
+  if (oldVnode.sel == '' || oldVnode.sel == undefined) {
     // 真实的dom，包装成虚拟节点
     oldVnode = vnode(oldVnode.tagName.toLowerCase(), {}, [], undefined, oldVnode)
   }
@@ -26,7 +26,7 @@ export default function (oldVnode, newVnode) {
     //将 这个虚拟dom创建成真正的dom
     let newVnodeElm = createElement(newVnode)
     // console.log(newVnodeElm); ->  <mark>哈哈哈哈哈哈哈哈哈</mark>
-    console.log(newVnodeElm);
+    // console.log(newVnodeElm);
 
     if (oldVnode.elm.parentNode && newVnodeElm) {
       // 插入到老节点之前
