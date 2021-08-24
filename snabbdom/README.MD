@@ -268,3 +268,7 @@ btn.addEventListener('click', function () {
 ![](src/public/image/patch函数.png)
 
 ## 手写第一次上树
+
+
+## createElement函数流程
+![](src/public/image/createElement递归原理.png)

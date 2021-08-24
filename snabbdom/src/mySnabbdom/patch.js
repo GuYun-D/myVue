@@ -17,14 +17,25 @@ export default function (oldVnode, newVnode) {
   /**
    * 判断oldVnode, newVnode是不是同一个节点
    */
-  if(oldVnode.key === newVnode.key && oldVnode.sel === newVnode.sel){
+  if (oldVnode.key === newVnode.key && oldVnode.sel === newVnode.sel) {
     // 是同一个节点
     console.log("同一个节点");
-  }else {
+  } else {
     // 不是同一个，暴力删除旧的，添加新的
     console.log("不是同一个，暴力删除旧的，添加新的");
-    // 此时的oldVnode肯定是一个虚拟节点
-    createElement(newVnode, oldVnode.elm)
+    //将 这个虚拟dom创建成真正的dom
+    let newVnodeElm = createElement(newVnode)
+    // console.log(newVnodeElm); ->  <mark>哈哈哈哈哈哈哈哈哈</mark>
+    console.log(newVnodeElm);
+
+    if (oldVnode.elm.parentNode && newVnodeElm) {
+      // 插入到老节点之前
+      oldVnode.elm.parentNode.insertBefore(newVnodeElm, oldVnode.elm)
+    }
+
+    // 插入成功，删除老节点
+    oldVnode.elm.parentNode.removeChild(oldVnode.elm)
+
   }
 
 }
