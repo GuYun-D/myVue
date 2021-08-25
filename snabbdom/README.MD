@@ -272,3 +272,18 @@ btn.addEventListener('click', function () {
 
 ## createElement函数流程
 ![](src/public/image/createElement递归原理.png)
+
+## 当新老节点都有children属性时
+
+### 新增节点
+
+- 新增节点的情况分析
+![](src/public/image/新增节点的情况.png)
+
+- 出现bug
+![](src/public/image/bug1.png)
+
+<mark>当插入一个节点时，正确，当同时插入2个及以上的节点时，就会报错</mark>
+
+分析及解决
+![](src/public/image/bug1分析.png)
