@@ -12,7 +12,7 @@ import vnode from './vnode'
  *  | Array     |   h('div', {}, [])       |
  *  | Function  |   h('div', {}, h(...))   |
  */
-export default function (sel, data, c) {
+export default function h(sel, data, c) {
   // 检查参数的个数
   if (arguments.length !== 3) {
     throw new Error("h函数接收必须三个参数")

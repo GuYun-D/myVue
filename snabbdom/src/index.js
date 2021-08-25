@@ -4,18 +4,18 @@ import patch from './mySnabbdom/patch'
 const container = document.getElementById('container')
 const btn = document.getElementById('btn')
 
-const vnode1 = h('section', {}, [
-  h('p', {}, 'A'),
-  h('p', {}, 'B'),
-  h('p', {}, 'C'),
-  h('p', {}, 'D'),
-  h('p', {}, 'E')
-])
+const vnode1 = h('section', {},
+ "tedtrsdf"
+// [
+  // h('p', {}, 'A'),
+  // h('p', {}, 'B'),
+  // h('p', {}, 'C'),
+  // h('p', {}, 'D'),
+  // h('p', {}, 'E')
+// ]
+)
 
-const vnode2 = h('section', {}, [
-  h('p', {}, '我是新创建的h1'),
-  h('p', {}, '我是新创建的h2')
-])
+const vnode2 = h('section', {}, "虚拟节点相同，第三个参数是文本")
 
 // var vnode1 = h('mark', {}, '哈哈哈哈哈哈哈哈哈')
 
