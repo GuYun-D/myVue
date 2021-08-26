@@ -22,37 +22,7 @@ export default function patchVnode(oldVnode, newVnode) {
       console.log("新节点没有text属性");
       if (oldVnode.children != undefined && oldVnode.children.length > 0) {
         // 老的节点有children，此时是最复杂的情况，即：新老节点都有children属性
-        for (let i = 0; i < newVnode.children.length; i++) {
-          let ch = newVnode.children[i]
-          // 对老节点进行遍历，查看老节点是否存在和该节点相同的节点
-          // 创建一个flag，标记是否存在相同节点
-          let isExist = false
-          for (let j = 0; j < oldVnode.children.length; j++) {
-            if (oldVnode.children[j].sel === ch.sel && oldVnode.children[j].key === ch.key) {
-              isExist = true
-            }
-          }
-
-          if (!isExist) {
-            console.log(ch, i);
-            let dom = createElement(ch)
-            // 添加elm
-            ch.elm = dom
-            console.log(dom);
-            // 上树
-            if (un < oldVnode.children.length) {
-              console.log(oldVnode.elm.insertBefore);
-              oldVnode.elm.insertBefore(dom, oldVnode.children[un].elm)
-            } else {
-              // 如果un的值超过了旧节点，说明还有节点插入在旧节点的末尾，直接append进去
-              oldVnode.elm.appendChild(dom)
-            }
-
-          } else {
-            // 让处理旧节点的指针下移
-            un++
-          }
-        }
+        
       } else {
         // 老的没有children，新的有chuildren
         // 清空老的节点内容
