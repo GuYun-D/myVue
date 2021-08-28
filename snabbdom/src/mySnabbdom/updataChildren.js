@@ -63,8 +63,30 @@ export default function updataChildren(parentNode, oldCh, newCh) {
       parentNode.insertBefore(oldEndVnode.elm, oldStartVnode.elm)
       oldEndVnode = oldCh[--oldEndIdx]
       newStartVnode = newCh[++newStartIdx]
+    } else {
+      // 4种都没有命中
     }
   }
+
+  // while执行完毕，还存在旧前超了旧后的情况，就是“新增的情况.png”,就看看有没有剩余的节点没有处理
+  if (newStartIdx <= newEndIdx) {
+    console.log("循环结束了，但是新节点还存在");
+    // 循环结束了，但是newStartIdx还没有移到newEndIdx之后的话，说明新的节点就是还有没有遍历到的子节点，要插入进去
+    let before = newCh[newEndIdx + 1] == null ? null : newCh[newEndIdx + 1].elm
+    // console.log(before); // null,方法会自动识别，如果是null就是自动排到队尾去
+
+    for (let i = newStartIdx; i <= newEndIdx; i++) {
+      // newCh[i]仍然是虚拟节点
+      parentNode.insertBefore(createElement(newCh[i]), before)
+    }
+  } else if (oldStartIdx <= oldEndIdx) {
+    console.log("老节点还有节点没有处理");
+    // 批量删除oldStart和oldEnd指针之间的项
+    for (let i = oldStartIdx; i <= oldEndIdx; i++) {
+      parentNode.removeChild(oldCh[i].elm)
+    }
+  }
+
 }
 
 /**
