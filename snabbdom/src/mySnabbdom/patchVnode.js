@@ -12,7 +12,7 @@ export default function patchVnode(oldVnode, newVnode) {
   // 判断新旧虚拟节点是否是同一个节点
   if (!(newVnode === oldVnode)) {
     // 判断newVnode有没有text属性
-    if (newVnode.text != undefined && (newVnode.children == undefined || newVnode.children.length == 0)) {
+    if (newVnode.text !== undefined && (newVnode.children == undefined || newVnode.children.length == 0)) {
       console.log("命中");
       if (oldVnode.text !== newVnode.text) {
         // 如果新的虚拟节点中的text和老的虚拟节点的text不同，那么直接让新的text写入到老的elm之间。如果老的elm是children，那么也会立刻消失
@@ -29,9 +29,13 @@ export default function patchVnode(oldVnode, newVnode) {
         // 老的没有children，新的有chuildren
         // 清空老的节点内容
         oldVnode.elm.innerText = ''
-        for (let i = 0; i < newVnode.children.length; i++) {
-          let dom = createElement(newVnode.children[i])
-          oldVnode.appendchild(dom)
+        // for (let i = 0; i < newVnode.children.length; i++) {
+        //   let dom = createElement(newVnode.children[i])
+        //   oldVnode.elm.appendchild(dom)
+        // }
+        for (let ch of newVnode.children) {
+          let chDOM = createElement(ch);
+          oldVnode.elm.appendChild(chDOM);
         }
       }
     }
