@@ -1,4 +1,5 @@
 import patchVnode from "./patchVnode";
+import createElement from "./createElement";
 
 /**
  * 
@@ -36,9 +37,32 @@ export default function updataChildren(parentNode, oldCh, newCh) {
   while (oldStartIdx <= oldEndIdx && newStartIdx <= newEndIdx) {
     // 处理新前和旧前
     if (checkSameVnode(oldStartVnode, newStartVnode)) {
+      console.log("命中新前和旧前");
       patchVnode(oldStartVnode, newStartVnode)
       oldStartVnode = oldCh[++oldStartIdx]
-      newStartVnode = oldCh[++newStartIdx]
+      newStartVnode = newCh[++newStartIdx]
+    } else if (checkSameVnode(oldEndVnode, newEndVnode)) {
+      // 处理新后和旧后
+      console.log("命中新后和旧后");
+      patchVnode(oldEndVnode, newEndVnode)
+      oldEndVnode = oldCh[--oldEndIdx]
+      newEndVnode = newCh[--newEndIdx]
+
+    } else if (oldStartVnode, newEndVnode) {
+      console.log("命中新后与旧前");
+      patchVnode(oldStartVnode, newEndVnode)
+      // 当3命中的时候，此时要移动节点
+      // 移动节点：只要插入一个已经存在DON树上的节点，他就会被移动
+      parentNode.insertBefore(oldStartVnode.elm, oldEndVnode.elm.nextSibling)
+      oldStartVnode = oldCh[++oldStartIdx]
+      newEndVnode = newCh[--newEndIdx]
+    } else if (oldEndVnode, newStartVnode) {
+      console.log("命中新前旧后");
+      patchVnode(oldEndVnode, newStartVnode)
+      // 当3命中的时候，此时要移动节点
+      parentNode.insertBefore(oldEndVnode.elm, oldStartVnode.elm)
+      oldEndVnode = oldCh[--oldEndIdx]
+      newStartVnode = newCh[++newStartIdx]
     }
   }
 }
