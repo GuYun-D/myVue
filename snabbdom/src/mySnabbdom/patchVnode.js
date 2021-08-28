@@ -1,4 +1,5 @@
 import createElement from "./createElement";
+import updataChildren from './updataChildren'
 
 /**
  * 处理当新旧节点属于同一个虚拟dom时的操作
@@ -22,7 +23,8 @@ export default function patchVnode(oldVnode, newVnode) {
       console.log("新节点没有text属性");
       if (oldVnode.children != undefined && oldVnode.children.length > 0) {
         // 老的节点有children，此时是最复杂的情况，即：新老节点都有children属性
-        
+        // 因为新老节点属于同一个虚拟节点，所以参数父节点都一样，可以实oldVnode.elm,也可以是newVnode.elm
+        updataChildren(oldVnode.elm, oldVnode.children, newVnode.children)
       } else {
         // 老的没有children，新的有chuildren
         // 清空老的节点内容
