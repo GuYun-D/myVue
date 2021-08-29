@@ -33,12 +33,12 @@ export default function updataChildren(parentNode, oldCh, newCh) {
   // 新后节点
   let newEndVnode = newCh[newEndIdx]
 
-  let keyMap = {}
+  let keyMap = null
 
   // 开始循环
   while (oldStartIdx <= oldEndIdx && newStartIdx <= newEndIdx) {
-    // 处理新前和旧前
     if (checkSameVnode(oldStartVnode, newStartVnode)) {
+      // 处理新前和旧前
       console.log("命中新前和旧前");
       patchVnode(oldStartVnode, newStartVnode)
       oldStartVnode = oldCh[++oldStartIdx]
@@ -69,7 +69,46 @@ export default function updataChildren(parentNode, oldCh, newCh) {
       // 四种命中规则都没有命中
       console.log("四种都没有命中");
 
+      // 将老节点做一个map映射
+      if (!keyMap) {
+        keyMap = {};
+        // 记录oldVnode中的节点出现的key
+        // 从oldStartIdx开始到oldEndIdx结束，创建keyMap
+        for (let i = oldStartIdx; i <= oldEndIdx; i++) {
+          const key = oldCh[i].key;
+          if (key !== undefined) {
+            keyMap[key] = i;
+          }
+        }
+      }
+      console.log(keyMap);
+
+      // 接着寻找为命中的那一项（newSartIdx）在map映射中的位置
+      let idxInOld = keyMap[newStartVnode.key]
+      console.log(idxInOld);
+
+      // 找到之后对idxInOld进行判断，undefined就是当前项并不存在于老节点，就是新的项，直接插入即可
+      // 如不是undefined，就是需要移动该项的位置
+      if (idxInOld == undefined) {
+        // 直接添加新的项
+      } else {
+        // 移动项
+        // 取出要移动的项
+        const elmToRemove = oldCh[idxInOld]
+        console.log(elmToRemove);
+
+        // 判断elmToRemove存在
+        if (elmToRemove.elm.nodeType === 1) {
+          patchVnode(elmToRemove, newEndVnode)
+          // 打标记, 处理过的打上undefined
+          oldCh[idxInOld] = undefined
+          // 移动
+          parentNode.insertBefore(elmToRemove.elm, oldStartVnode.elm)
+        }
+      }
+
       // 判断
+      newStartVnode = newCh[++newStartIdx]
       newStartIdx++
     }
   }
@@ -89,7 +128,9 @@ export default function updataChildren(parentNode, oldCh, newCh) {
     console.log("老节点还有节点没有处理");
     // 批量删除oldStart和oldEnd指针之间的项
     for (let i = oldStartIdx; i <= oldEndIdx; i++) {
-      parentNode.removeChild(oldCh[i].elm)
+      if (oldCh[i]) {
+        parentNode.removeChild(oldCh[i].elm)
+      }
     }
   }
 
