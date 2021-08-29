@@ -15,9 +15,7 @@ const vnode1 = h('ul', {},
 )
 
 const vnode2 = h('ul', {}, [
-  h('li', { key: 'A' }, 'A'),
-  h('li', { key: 'B' }, 'B'),
-  h('li', { key: 'E' }, 'E')
+  h('li', { key: 'QQQ' }, 'QQQQ'),
 ])
 
 // var vnode1 = h('mark', {}, '哈哈哈哈哈哈哈哈哈')

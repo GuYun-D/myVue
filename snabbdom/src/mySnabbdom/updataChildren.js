@@ -3,9 +3,9 @@ import createElement from "./createElement";
 
 /**
  * 
- * @param {*} parentNode 父节点
- * @param {*} oldCh 老的子元素
- * @param {*} newCh 新的子元素
+ * @param {Object} parentNode 父节点
+ * @param {Array} oldCh 老的子元素
+ * @param {Array} newCh 新的子元素
  */
 export default function updataChildren(parentNode, oldCh, newCh) {
   // console.log(parentNode);
@@ -33,6 +33,8 @@ export default function updataChildren(parentNode, oldCh, newCh) {
   // 新后节点
   let newEndVnode = newCh[newEndIdx]
 
+  let keyMap = {}
+
   // 开始循环
   while (oldStartIdx <= oldEndIdx && newStartIdx <= newEndIdx) {
     // 处理新前和旧前
@@ -48,7 +50,7 @@ export default function updataChildren(parentNode, oldCh, newCh) {
       oldEndVnode = oldCh[--oldEndIdx]
       newEndVnode = newCh[--newEndIdx]
 
-    } else if (oldStartVnode, newEndVnode) {
+    } else if (checkSameVnode(oldStartVnode, newEndVnode)) {
       console.log("命中新后与旧前");
       patchVnode(oldStartVnode, newEndVnode)
       // 当3命中的时候，此时要移动节点
@@ -56,7 +58,7 @@ export default function updataChildren(parentNode, oldCh, newCh) {
       parentNode.insertBefore(oldStartVnode.elm, oldEndVnode.elm.nextSibling)
       oldStartVnode = oldCh[++oldStartIdx]
       newEndVnode = newCh[--newEndIdx]
-    } else if (oldEndVnode, newStartVnode) {
+    } else if (checkSameVnode(oldEndVnode, newStartVnode)) {
       console.log("命中新前旧后");
       patchVnode(oldEndVnode, newStartVnode)
       // 当3命中的时候，此时要移动节点
@@ -64,7 +66,11 @@ export default function updataChildren(parentNode, oldCh, newCh) {
       oldEndVnode = oldCh[--oldEndIdx]
       newStartVnode = newCh[++newStartIdx]
     } else {
-      // 4种都没有命中
+      // 四种命中规则都没有命中
+      console.log("四种都没有命中");
+
+      // 判断
+      newStartIdx++
     }
   }
 
@@ -98,3 +104,6 @@ export default function updataChildren(parentNode, oldCh, newCh) {
 function checkSameVnode(a, b) {
   return a.sel === b.sel && a.key === b.key;
 }
+
+
+
