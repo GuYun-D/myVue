@@ -90,7 +90,11 @@ export default function updataChildren(parentNode, oldCh, newCh) {
       // 找到之后对idxInOld进行判断，undefined就是当前项并不存在于老节点，就是新的项，直接插入即可
       // 如不是undefined，就是需要移动该项的位置
       if (idxInOld == undefined) {
-        // 直接添加新的项
+        // 直接添加新的项, undefined就是当前项并不存在于老节点，就是新的项，直接插入即可
+        // 被添加的新的项，现在还是虚拟dom，不是真正的dom
+        console.log("@");
+        parentNode.insertBefore(createElement(newStartVnode), oldStartVnode.elm)
+
       } else {
         // 移动项
         // 取出要移动的项
@@ -98,18 +102,16 @@ export default function updataChildren(parentNode, oldCh, newCh) {
         console.log(elmToRemove);
 
         // 判断elmToRemove存在
-        if (elmToRemove.elm.nodeType === 1) {
-          patchVnode(elmToRemove, newEndVnode)
-          // 打标记, 处理过的打上undefined
-          oldCh[idxInOld] = undefined
-          // 移动
-          parentNode.insertBefore(elmToRemove.elm, oldStartVnode.elm)
-        }
+        patchVnode(elmToRemove, newStartVnode)
+        // 打标记, 处理过的打上undefined
+        oldCh[idxInOld] = undefined
+        // 移动
+        parentNode.insertBefore(elmToRemove.elm, oldStartVnode.elm)
+
       }
 
       // 判断
       newStartVnode = newCh[++newStartIdx]
-      newStartIdx++
     }
   }
 
