@@ -1,3 +1,4 @@
+import Dep from "./Dep";
 import { observe } from "./observe";
 /**
  * 封装dfineReactive函数
@@ -7,6 +8,8 @@ import { observe } from "./observe";
  * @param {*} val 
  */
 export default function defineReactive(data, key, val) {
+  const dep = new Dep()
+
   console.log("我是defineReactive属性", data, key);
   if (arguments.length == 2) {
     val = data[key]
@@ -30,6 +33,9 @@ export default function defineReactive(data, key, val) {
 
       // 当属性被设置了新值，这个新值也要进行
       childOb = observe(newVal)
+
+      // 发布订阅模式，通知dep
+      dep.notify()
     }
   })
 }

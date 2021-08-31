@@ -54,6 +54,7 @@ methodsNeedChange.forEach(methodsName => {
     let result = original.apply(this, arguments)
     console.log("啦啦啦啦");
 
+    ob.dep.notify()
     return result
   }, false)
 })
