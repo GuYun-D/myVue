@@ -1,4 +1,5 @@
 import { observe } from "./observe"
+import Watcher from "./Watcher"
 
 var obj = {
   a: {
@@ -20,4 +21,8 @@ observe(obj)
 // obj.c.splice(2, 1, "哈啊哈哈哈哈哈")
 
 obj.a.m.n = 1
+
+new Watcher(obj, 'a.m.n', (val) => {
+  console.log("^^^^^^^^^^^^^", val);
+})
 console.log(obj);

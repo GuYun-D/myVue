@@ -23,6 +23,14 @@ export default function defineReactive(data, key, val) {
     configurable: true,
     get() {
       console.log("你在访问" + key + "的属性");
+      // 如果现在处于依赖的收集阶段
+      if(Dep.target){
+        dep.depend()
+
+        if(childOb){
+          childOb.dep.depend()
+        }
+      }
       return val
     },
 
