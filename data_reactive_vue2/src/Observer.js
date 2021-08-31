@@ -1,6 +1,7 @@
 import { def } from './utils'
 import defineReactive from './defineReactive';
 import {arrayMethods} from './array'
+import { observe } from './observe';
 
 /**
  * 观察者模式
@@ -14,6 +15,8 @@ export default class Observer {
     if(Array.isArray(value)){
       // 如果是数组，将这个数组的原型指向arrayMethods
       Object.setPrototypeOf(value, arrayMethods)
+      // 让这个数组变成响应式的
+      this.observeArray(value)
     }else {
       this.walk(value)
     }
@@ -22,6 +25,14 @@ export default class Observer {
   walk(value) {
     for (const key in value) {
       defineReactive(value, key)
+    }
+  }
+
+  // 让数组变成响应式
+  observeArray(arr){
+    for(let i = 0, l = arr.length; i < l; i++){
+      // 对数组每一个元素逐个observe
+      observe(arr[i])
     }
   }
 }

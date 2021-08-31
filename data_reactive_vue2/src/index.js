@@ -17,5 +17,6 @@ var obj = {
 observe(obj)
 
 obj.c.push("4", "23", "21")
+obj.c.splice(2, 1, "哈啊哈哈哈哈哈")
 
 console.log(obj.c);
